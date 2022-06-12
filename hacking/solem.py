@@ -39,9 +39,15 @@ class BLIPNotification(btle.DefaultDelegate):
         # ... perhaps check cHandle
         # ... process 'data'
         btle.DefaultDelegate.__init__(self)       
-        print(f"Notification from {cHandle}: {binascii.hexlify(data)}")
+        print(f"Notification from {cHandle}: {binascii.hexlify(data)} {data}")
 
-
+def handleNotifications(per, wait):
+    while wait:
+        if per.waitForNotifications(1.0):
+            # handleNotification() was called
+            continue
+        print("Waiting...")
+        wait = wait - 1
 
 per = btle.Peripheral()
 
@@ -70,43 +76,13 @@ try:
     per.writeCharacteristic(characteristicNotify.getHandle()+1, b"\x01\x00")
     
     #3105a000000000 - on
+    print("writing command")
     characteristicWrite.write(struct.pack(">BBBBBH",0x31,0x05,0xa0,0x00,0x01,0x0000))
+    handleNotifications(per, 3)
+    print("committing")
     characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
-    # Main loop --------
-
-    wait = 5
-    while wait:
-        if per.waitForNotifications(1.0):
-            # handleNotification() was called
-            continue
-
-        print("Waiting...")
-        wait = wait - 1
-        # Perhaps do something else here
-
-    #12 Jun 2022 8:34
-    #3105c000000000 - off permanently
-    #characteristicWrite.write(struct.pack(">BBBBBBB",0x31,0x05,0xc0,0x00,0x00,0x00,0x00))
-
-    #3105c000010000 - off today
-    #characteristicWrite.write(struct.pack(">BBBBBBB",0x31,0x05,0xc0,0x00,0x01,0x00,0x00))
-    #3105a000000000 - on
-    #characteristicWrite.write(struct.pack(">BBBBBBB",0x31,0x05,0xa0,0x00,0x00,0x00,0x00))
-
-    #3105110000003c
-    #31051100000078
-    #3105110000a8c0
-    #31051400010000
-
-    #31051400020000
+    handleNotifications(per, 3)
     
-
-    
-
-
-    #service '108b0001-eab5-bc09-d0ea-0b8f467ce8ee'
-    #ser = per.getServiceByUUID("108b0001-eab5-bc09-d0ea-0b8f467ce8ee")
-
 except btle.BTLEException as e:
     print("BLE Exception:", e)
 
