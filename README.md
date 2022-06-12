@@ -2,9 +2,12 @@
 
 https://www.solem.fr/en/residential-watering/9-bl-ip.html
 
+Tested on model with 4 stations. Controller Software version: **5.1.5**
 
-# Manual control
+# How to control via bluetooth
+Write the command to the characteristic ```108b0002-eab5-bc09-d0ea-0b8f467ce8ee``` followed by writing 3b00 to the same characteristic
 
+# Commands discovered
 |Command|Code|Comment|
 | --- | --- |---|
 **On/Off**
@@ -21,3 +24,18 @@ https://www.solem.fr/en/residential-watering/9-bl-ip.html
 stop in-progress watering|31051500ff0000
 **Commit**
 |Commit|3b00|commit the manual command
+
+# Samples
+
+bluepy sample snippet:
+
+```
+# Assumming characteristicWrite is the characteristic with uuid '108b0002-eab5-bc09-d0ea-0b8f467ce8ee'
+#turn on the controller
+print("writing command")
+characteristicWrite.write(struct.pack(">BBBBBH",0x31,0x05,0xa0,0x00,0x01,0x0000))
+print("committing")
+characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
+```
+# Contribution
+Test on your controller and confirm if it's working perhaps on a different controller model with a different programming
