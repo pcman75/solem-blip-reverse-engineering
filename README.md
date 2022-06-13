@@ -1,4 +1,4 @@
-# Solem BL-IP Reverse Engineering
+# Solem BL-IP irrigation controller bluetooth protocol - docummentation
 
 https://www.solem.fr/en/residential-watering/9-bl-ip.html
 
