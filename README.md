@@ -62,6 +62,12 @@ print("writing command")
 characteristicWrite.write(struct.pack(">HBBBH",0x3105,0x12,0x03,0x00,0x0294))
 print("committing")
 characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
+
+#3105-15-00-ff-0000 - stop any manual watering program
+print("writing command")
+characteristicWrite.write(struct.pack(">HBBBH",0x3105,0x15,0x00,0xff,0x0000))
+print("committing")
+characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
 ```
 # Contribution
 Test on your controller and confirm if it's working perhaps on a different controller model with a different programming
