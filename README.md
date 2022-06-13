@@ -1,4 +1,4 @@
-# Solem BL-IP irrigation controller bluetooth protocol - docummentation
+# Solem BL-IP irrigation controller bluetooth protocol - documentation
 
 https://www.solem.fr/en/residential-watering/9-bl-ip.html
 
