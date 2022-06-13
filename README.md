@@ -17,7 +17,7 @@ Write the command to the characteristic ```108b0002-eab5-bc09-d0ea-0b8f467ce8ee`
 **Manual Control by Stations**
 |all stations for XXXX seconds|3105110000XXXX|XXXX: number of seconds, max 0xa8c0 = 12h|
 |station X for YYYY seconds|310514000XYYYY|TODO: test this|
-|station X for programmed time|310514000X0000||
+|program X for programmed time|310514000X0000||
 **Manual Control by Programs**
 |run program X|3105120X000000|
 **Stop**
