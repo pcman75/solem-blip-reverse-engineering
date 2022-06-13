@@ -31,9 +31,16 @@ bluepy sample snippet:
 
 ```
 # Assumming characteristicWrite is the characteristic with uuid '108b0002-eab5-bc09-d0ea-0b8f467ce8ee'
-#turn on the controller
+
+#3105a000000000 - turn on the controller
 print("writing command")
-characteristicWrite.write(struct.pack(">BBBBBH",0x31,0x05,0xa0,0x00,0x01,0x0000))
+characteristicWrite.write(struct.pack(">HBBBH",0x3105,0xa0,0x00,0x01,0x0000))
+print("committing")
+characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
+
+#3105c000030000 - 3 days off
+print("writing command")
+characteristicWrite.write(struct.pack(">HBBBH",0x3105,0xc0,0x00,0x03,0x0000))
 print("committing")
 characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
 ```
