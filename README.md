@@ -18,11 +18,13 @@ Write the command to the characteristic ```108b0002-eab5-bc09-d0ea-0b8f467ce8ee`
 |all stations for XXXX seconds|3105110000XXXX|XXXX: number of seconds, max 0xa8c0 = 12h|
 **Manual Control by Programs**
 |run program X for the programmed time|310514000X0000|
-|run program X|3105120X000000| ????
 **Stop**
 stop in-progress watering|31051500ff0000
 **Commit**
 |Commit|3b00|commit the manual command
+**Strange things**
+|run program X|3105120X000000| ????
+
 
 # Samples
 
