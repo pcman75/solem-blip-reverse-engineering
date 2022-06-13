@@ -16,14 +16,14 @@ Write the command to the characteristic ```108b0002-eab5-bc09-d0ea-0b8f467ce8ee`
 |off permanently|3105c000000000|permanently if the number of days is 0|
 **Manual Control by Stations**
 |all stations for XXXX seconds|3105110000XXXX|XXXX: number of seconds, max 0xa8c0 = 12h|
+|station X for YYYY seconds|3105120X00YYYY
 **Manual Control by Programs**
-|run program X for the programmed time|310514000X0000|
+|run program X for the programmed time|310514000X0000
 **Stop**
 stop in-progress watering|31051500ff0000
 **Commit**
 |Commit|3b00|commit the manual command
-**Strange things**
-|run program X|3105120X000000| ????
+
 
 
 # Samples
@@ -54,6 +54,12 @@ characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
 #3105-11-0000-XXXX - all stations 7 min
 print("writing command")
 characteristicWrite.write(struct.pack(">HBBBH",0x3105,0x11,0x00,0x00,0x6270))
+print("committing")
+characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
+
+#3105-12-03-00-0294 - station 3 for 11 minutes
+print("writing command")
+characteristicWrite.write(struct.pack(">HBBBH",0x3105,0x12,0x03,0x00,0x0294))
 print("committing")
 characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
 ```
