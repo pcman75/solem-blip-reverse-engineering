@@ -27,7 +27,7 @@ stop in-progress watering|31051500ff0000
 
 # Samples
 
-bluepy sample snippet:
+bluepy sample snippets:
 
 ```
 # Assumming characteristicWrite is the characteristic with uuid '108b0002-eab5-bc09-d0ea-0b8f467ce8ee'
@@ -41,6 +41,12 @@ characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
 #3105c000030000 - 3 days off
 print("writing command")
 characteristicWrite.write(struct.pack(">HBBBH",0x3105,0xc0,0x00,0x03,0x0000))
+print("committing")
+characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
+
+#3105c000000000 - off permanently
+print("writing command")
+characteristicWrite.write(struct.pack(">HBBBH",0x3105,0xc0,0x00,0x00,0x0000))
 print("committing")
 characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
 ```
