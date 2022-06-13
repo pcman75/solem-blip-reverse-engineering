@@ -14,7 +14,7 @@ off 15 days:    | 3105c0000f0000
 --------------------------------
 on:             | 3105a000000000
 --------------------------------
-all zones XXXX seconds | 3105110000XXXX | XXXX: number of seconds, max 0xa8c0 = 12h
+all stations XXXX seconds | 3105110000XXXX | XXXX: number of seconds, max 0xa8c0 = 12h
 --------------------------------
 31051400010000 dimi seara
 31051400020000 avarie
@@ -75,9 +75,10 @@ try:
     # Setup to turn notifications on, e.g.
     per.writeCharacteristic(characteristicNotify.getHandle()+1, b"\x01\x00")
     
-    #3105a000000000 - on
+    
+    #3105-15-00-ff-0000 - stop any manual watering program
     print("writing command")
-    characteristicWrite.write(struct.pack(">BBBBBH",0x31,0x05,0xa0,0x00,0x01,0x0000))
+    characteristicWrite.write(struct.pack(">HBBBH",0x3105,0x15,0x00,0xff,0x0000))
     handleNotifications(per, 3)
     print("committing")
     characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
