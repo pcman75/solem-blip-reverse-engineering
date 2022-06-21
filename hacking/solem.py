@@ -60,11 +60,11 @@ try:
     characteristics = per.getCharacteristics()    
     for characteristic in characteristics:
         print("{}, hnd={}, supports {}".format(characteristic, hex(characteristic.handle), characteristic.propertiesToString()))
-        if characteristic.uuid == '00002a04-0000-1000-8000-00805f9b34fb':
-            bytes = characteristic.read()
-            print("Read {}", struct.unpack('BBBBBBH', bytes))
+        #if characteristic.uuid == '00002a04-0000-1000-8000-00805f9b34fb':
+        #    bytes = characteristic.read()
+        #    print("Read {}", struct.unpack('BBBBBBH', bytes))
 
-        elif characteristic.uuid == '108b0002-eab5-bc09-d0ea-0b8f467ce8ee':
+        if characteristic.uuid == '108b0002-eab5-bc09-d0ea-0b8f467ce8ee':
             characteristicWrite = characteristic
 
         elif characteristic.uuid == '108b0003-eab5-bc09-d0ea-0b8f467ce8ee':
@@ -76,13 +76,13 @@ try:
     per.writeCharacteristic(characteristicNotify.getHandle()+1, b"\x01\x00")
     
     
-    #3105-15-00-ff-0000 - stop any manual watering program
+    #0x31051201000294 - stop any manual watering program
     print("writing command")
-    characteristicWrite.write(struct.pack(">HBBBH",0x3105,0x15,0x00,0xff,0x0000))
-    handleNotifications(per, 3)
+    characteristicWrite.write(struct.pack(">HBBBH",0x3105,0x12,0x01,0x00,0x0294))
+    handleNotifications(per, 1)
     print("committing")
     characteristicWrite.write(struct.pack(">BB",0x3b,0x00))
-    handleNotifications(per, 3)
+    handleNotifications(per, 1)
     
 except btle.BTLEException as e:
     print("BLE Exception:", e)
